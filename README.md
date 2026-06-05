@@ -32,6 +32,9 @@ timeline-generator/
 │   └── timeline.css            # Styles du rendu visuel de la timeline
 │
 ├── js/
+|   ├── models/
+|   |   └── event.model.js      # Structure de donnée d'un événement
+|   |
 │   ├── app.js                  # Point d'entrée JS — initialisation et orchestration
 │   ├── form.js                 # Gestion du formulaire (ajout, suppression, validation)
 │   ├── timeline.js             # Construction et rendu de la timeline dans le DOM
