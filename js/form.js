@@ -1,29 +1,37 @@
 import { createTimelineEvent } from "./models/event.model.js";
 import { renderTimeline } from "./timeline.js";
 import { eventValidator, sortEventsByDate } from "./utils.js";
-import { applyFormat} from "./formatting.js";
+import { applyFormat, toggleWholeFieldFormat } from "./formatting.js";
 
 /**
  * Initialize the event form with one line and set up the event listener for adding new lines.
  */
 export function initiateForm() {
-    const form = document.getElementById("event-form");
-    const addEventBtn = document.getElementById("add-event-btn");
-    const clearEventsBtn = document.getElementById("clear-events-btn");
-    let eventCount = 0;
+    setupFormButtons();
+    resetForm();  
+}
 
-    const initialFormLine = createEventFormLine(eventCount++);
-    form.appendChild(initialFormLine);
+function setupFormButtons() {
+    let eventCount = 1;
 
-    addEventBtn.addEventListener("click", () => {
-        const newFormLine = createEventFormLine(eventCount++);
-        form.appendChild(newFormLine);
+    document.getElementById("add-event-btn").addEventListener("click", () => {
+        const form = document.getElementById("event-form");
+        form.appendChild(createEventFormLine(eventCount++));
     });
 
-    clearEventsBtn.addEventListener("click", () => {
+    document.getElementById("clear-events-btn").addEventListener("click", () => {
+        eventCount = 1;
         resetForm();
     });
-    
+}
+
+/**
+ * Reset the form by clearing all form lines and reinitializing the form.
+ */
+function resetForm() {
+    const form = document.getElementById("event-form");
+    form.innerHTML = "";
+    form.appendChild(createEventFormLine(0));
 }
 
 /**
@@ -45,58 +53,36 @@ function createEventFormLine(id) {
         
         <label for="event-title-${id}">Titre:</label>
         <div class="title-format-pills">
-            <button type="button" class="pill-btn active" data-format="none">N</button>
-            <button type="button" class="pill-btn" data-format="bold"><b>G</b></button>
-            <button type="button" class="pill-btn" data-format="italic"><i>I</i></button>
-            <button type="button" class="pill-btn" data-format="underline"><u>S</u></button>
+            <button type="button" class="pill-btn" data-tag="strong"><b>G</b></button>
+            <button type="button" class="pill-btn" data-tag="em"><i>I</i></button>
+            <button type="button" class="pill-btn" data-tag="u"><u>S</u></button>
         </div>
-        <input type="text" class="event-title" id="event-title-${id}" placeholder="Titre de l'événement" required>
+        <div class="event-title" id="event-title-${id}" contenteditable="true" placeholder="Titre de l'événement"></div>
         
         <label for="event-description-${id}">Description:</label>
         <div class="toolbar">
-            <button type="button" class="format-btn" data-tag="none">N</button>
             <button type="button" class="format-btn" data-tag="strong"><b>G</b></button>
             <button type="button" class="format-btn" data-tag="em"><i>I</i></button>
             <button type="button" class="format-btn" data-tag="u"><u>S</u></button>
         </div>
-        <div class="event-description" 
-            id="event-description-${id}" 
-            contenteditable="true" 
-            placeholder="Description de l'événement">
-        </div>
+        <div class="event-description" id="event-description-${id}" contenteditable="true" placeholder="Description de l'événement"></div>
         
         <label>
-            <input type="checkbox" id="event-primary-${id}" class="event-primary" name="isPrimary">Événement principal
+            <input type="checkbox" id="event-primary-${id}" class="event-primary" name="isPrimary">
+            Événement principal
         </label>
     `;
+
+    setupDescriptionFormatting(formLine, id);
+    setupTitleFormatting(formLine, id);
 
     // Add event listener for primary checkbox to ensure only one can be selected
     formLine.querySelector(`#event-primary-${id}`)
         .addEventListener("change", primaryCheckboxHandler);
 
-    // Add event listeners for formatting buttons
-    const descriptionField = formLine.querySelector(`#event-description-${id}`);
-    formLine.querySelectorAll(".format-btn").forEach((btn) => {
-        btn.addEventListener("mousedown", (e) => {
-            e.preventDefault();
-            applyFormat(descriptionField, btn.dataset.tag);
-        });
-    });
-
-    // Add event listeners for title formatting pills
-    formLine.querySelectorAll(".pill-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            formLine.querySelectorAll(".pill-btn").forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-        });
-    });
-
-
     // Add remove button for all lines except the first one
-    if (id > 0) {
-        formLine.appendChild(removeButton(id));
-    }
-
+    if (id > 0) formLine.appendChild(createRemoveButton(id));
+    
     return formLine;
 }
 
@@ -105,45 +91,29 @@ function createEventFormLine(id) {
  * @returns {TimelineEvent[]}
  */
 function collectFormData() {
-    const formLines = document.querySelectorAll(".form-line");
-    const eventsData = [];
-    formLines.forEach(line => {
-        const date = line.querySelector(".event-date").value;
-        const time = line.querySelector(".event-time").value;
-        const selectedPill = line.querySelector(".pill-btn.active")
-        const format = selectedPill ? selectedPill.dataset.format : "none";
-        const rawTitle = line.querySelector(".event-title").value;
-        const description = line.querySelector(".event-description").innerHTML;
-        const isPrimary = line.querySelector(".event-primary").checked;
-
-        const titleMap= {
-            "none": rawTitle,
-            "bold": `<strong>${rawTitle}</strong>`,
-            "italic": `<em>${rawTitle}</em>`,
-            "underline": `<u>${rawTitle}</u>`
-        }
-
-        eventsData.push(createTimelineEvent({ date, time, title: titleMap[format], description, isPrimary }));
-    });
-
-    return eventsData;
+    return [...document.querySelectorAll(".form-line")].map(line => createTimelineEvent({
+        date: line.querySelector(".event-date").value,
+        time: line.querySelector(".event-time").value,
+        title: line.querySelector(".event-title").innerHTML,
+        description: line.querySelector(".event-description").innerHTML,
+        isPrimary: line.querySelector(".event-primary").checked,
+    }));
 }
 
 /**
  * Handle form submission by collecting data, validating it, and then processing it
  */
 export function handleFormSubmit() {
-    const form = document.getElementById("event-form");
-    form.addEventListener("submit", (e) => {
+    document.getElementById("event-form").addEventListener("submit", (e) => {
         e.preventDefault();
-        const eventsData = collectFormData();
-        const validEvents = eventsData.filter(eventValidator);
+        const validEvents = collectFormData().filter(eventValidator);
+
         if (validEvents.length === 0) {
             alert("Veuillez remplir au moins un événement avec une date et un titre valides.");
             return;
         }
-        const sortedEvents = sortEventsByDate(validEvents);
-        renderTimeline(sortedEvents);
+
+        renderTimeline(sortEventsByDate(validEvents));
     });
 }
 
@@ -152,21 +122,16 @@ export function handleFormSubmit() {
  * @param {number} id - The unique identifier for the form line.
  * @return {HTMLButtonElement}
  */
-function removeButton(id) {
+function createRemoveButton(id) {
     const removeBtn = document.createElement("button");
     removeBtn.type = "button";
     removeBtn.textContent = "Supprimer";
-    removeBtn.addEventListener("click", () => removeFormLine(id));
+    removeBtn.addEventListener("click", () => {
+        document.querySelector(`.form-line[data-id="${id}"]`).remove();
+    });
     return removeBtn;
 }
 
-/**
- * Remove a form line from the DOM based on its unique identifier.
- * @param {number} id - The unique identifier for the form line to be removed.
- */
-function removeFormLine(id) {
-    document.querySelector(`.form-line[data-id="${id}"]`).remove();
-}
 
 /**
  * Handle the change event for primary event checkboxes.
@@ -174,19 +139,55 @@ function removeFormLine(id) {
  * @param {Event} event - The change event triggered by a checkbox.
  */
 function primaryCheckboxHandler(event) {
-    const checkboxes = document.querySelectorAll("input[name='isPrimary']");
-    checkboxes.forEach(checkbox => {
-        if (checkbox !== event.target) {
-            checkbox.checked = false;
-        }
+    document.querySelectorAll("input[name='isPrimary']").forEach(checkbox => {
+        if (checkbox !== event.target) checkbox.checked = false;
     });
 }
 
 /**
- * Reset the form by clearing all form lines and reinitializing the form.
+ * Set up formatting buttons for the description field of a form line.
+ * @param {HTMLElement} formLine - The form line element.
+ * @param {number} id - The unique identifier for the form line.
  */
-function resetForm() {
-    const form = document.getElementById("event-form");
-    form.innerHTML = "";
-    initiateForm();
+function setupDescriptionFormatting(formLine, id) {
+    const field = formLine.querySelector(`#event-description-${id}`);
+
+    formLine.querySelectorAll(".format-btn").forEach(btn => {
+        let savedRange = null;
+
+        btn.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                savedRange = selection.getRangeAt(0).cloneRange();
+            }
+        });
+
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (!savedRange) return;
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(savedRange);
+            applyFormat(field, btn.dataset.tag);
+            savedRange = null;
+        });
+    });
 }
+
+/**
+ * Set up formatting buttons for the title field of a form line.
+ * @param {HTMLElement} formLine - The form line element.
+ * @param {number} id - The unique identifier for the form line.
+ */
+function setupTitleFormatting(formLine, id) {
+    const field = formLine.querySelector(`#event-title-${id}`);
+
+    formLine.querySelectorAll(".pill-btn").forEach(btn => {
+        btn.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            toggleWholeFieldFormat(field, btn.dataset.tag);
+        });
+    });
+}
+
