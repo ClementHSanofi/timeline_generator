@@ -37,6 +37,7 @@ timeline-generator/
 |   |
 │   ├── app.js                  # Point d'entrée JS — initialisation et orchestration
 │   ├── form.js                 # Gestion du formulaire (ajout, suppression, validation)
+|   ├── formatting.js           # Changement du format des titres et descriptions (Gras, Italic, Soulignés)
 │   ├── timeline.js             # Construction et rendu de la timeline dans le DOM
 │   ├── pdf.js                  # Export PDF via jsPDF (chargé en CDN)
 │   └── utils.js                # Fonctions utilitaires partagées (formatage dates, tri, etc.)
