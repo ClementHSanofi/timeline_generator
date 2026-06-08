@@ -44,10 +44,17 @@ function createEventFormLine(id) {
         <input type="time" class="event-time" id="event-time-${id}">
         
         <label for="event-title-${id}">Titre:</label>
+        <div class="title-format-pills">
+            <button type="button" class="pill-btn active" data-format="none">N</button>
+            <button type="button" class="pill-btn" data-format="bold"><b>G</b></button>
+            <button type="button" class="pill-btn" data-format="italic"><i>I</i></button>
+            <button type="button" class="pill-btn" data-format="underline"><u>S</u></button>
+        </div>
         <input type="text" class="event-title" id="event-title-${id}" placeholder="Titre de l'événement" required>
         
         <label for="event-description-${id}">Description:</label>
         <div class="toolbar">
+            <button type="button" class="format-btn" data-tag="none">N</button>
             <button type="button" class="format-btn" data-tag="strong"><b>G</b></button>
             <button type="button" class="format-btn" data-tag="em"><i>I</i></button>
             <button type="button" class="format-btn" data-tag="u"><u>S</u></button>
@@ -76,6 +83,15 @@ function createEventFormLine(id) {
         });
     });
 
+    // Add event listeners for title formatting pills
+    formLine.querySelectorAll(".pill-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            formLine.querySelectorAll(".pill-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+        });
+    });
+
+
     // Add remove button for all lines except the first one
     if (id > 0) {
         formLine.appendChild(removeButton(id));
@@ -94,11 +110,20 @@ function collectFormData() {
     formLines.forEach(line => {
         const date = line.querySelector(".event-date").value;
         const time = line.querySelector(".event-time").value;
-        const title = line.querySelector(".event-title").value;
+        const selectedPill = line.querySelector(".pill-btn.active")
+        const format = selectedPill ? selectedPill.dataset.format : "none";
+        const rawTitle = line.querySelector(".event-title").value;
         const description = line.querySelector(".event-description").innerHTML;
         const isPrimary = line.querySelector(".event-primary").checked;
 
-        eventsData.push(createTimelineEvent({ date, time, title, description, isPrimary }));
+        const titleMap= {
+            "none": rawTitle,
+            "bold": `<strong>${rawTitle}</strong>`,
+            "italic": `<em>${rawTitle}</em>`,
+            "underline": `<u>${rawTitle}</u>`
+        }
+
+        eventsData.push(createTimelineEvent({ date, time, title: titleMap[format], description, isPrimary }));
     });
 
     return eventsData;
