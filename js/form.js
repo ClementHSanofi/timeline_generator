@@ -1,6 +1,7 @@
 import { createTimelineEvent } from "./models/event.model.js";
 import { renderTimeline } from "./timeline.js";
 import { eventValidator, sortEventsByDate } from "./utils.js";
+import { applyFormat} from "./formatting.js";
 
 /**
  * Initialize the event form with one line and set up the event listener for adding new lines.
@@ -38,20 +39,48 @@ function createEventFormLine(id) {
     formLine.innerHTML = `
         <label for="event-date-${id}">Date:</label>
         <input type="date" class="event-date" id="event-date-${id}" required>
+        
         <label for="event-time-${id}">Heure:</label>
         <input type="time" class="event-time" id="event-time-${id}">
+        
         <label for="event-title-${id}">Titre:</label>
         <input type="text" class="event-title" id="event-title-${id}" placeholder="Titre de l'événement" required>
+        
         <label for="event-description-${id}">Description:</label>
-        <textarea class="event-description" id="event-description-${id}" placeholder="Description de l'événement"></textarea>
-        <label><input type="checkbox" id="event-primary-${id}" class="event-primary" name="isPrimary">Événement principal</label>
+        <div class="toolbar">
+            <button type="button" class="format-btn" data-tag="strong"><b>G</b></button>
+            <button type="button" class="format-btn" data-tag="em"><i>I</i></button>
+            <button type="button" class="format-btn" data-tag="u"><u>S</u></button>
+        </div>
+        <div class="event-description" 
+            id="event-description-${id}" 
+            contenteditable="true" 
+            placeholder="Description de l'événement">
+        </div>
+        
+        <label>
+            <input type="checkbox" id="event-primary-${id}" class="event-primary" name="isPrimary">Événement principal
+        </label>
     `;
-    const isPrimarycheckbox = formLine.querySelector(`#event-primary-${id}`);
-    isPrimarycheckbox.addEventListener("change", primaryCheckboxHandler);
 
+    // Add event listener for primary checkbox to ensure only one can be selected
+    formLine.querySelector(`#event-primary-${id}`)
+        .addEventListener("change", primaryCheckboxHandler);
+
+    // Add event listeners for formatting buttons
+    const descriptionField = formLine.querySelector(`#event-description-${id}`);
+    formLine.querySelectorAll(".format-btn").forEach((btn) => {
+        btn.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            applyFormat(descriptionField, btn.dataset.tag);
+        });
+    });
+
+    // Add remove button for all lines except the first one
     if (id > 0) {
         formLine.appendChild(removeButton(id));
     }
+
     return formLine;
 }
 
@@ -66,7 +95,7 @@ function collectFormData() {
         const date = line.querySelector(".event-date").value;
         const time = line.querySelector(".event-time").value;
         const title = line.querySelector(".event-title").value;
-        const description = line.querySelector(".event-description").value;
+        const description = line.querySelector(".event-description").innerHTML;
         const isPrimary = line.querySelector(".event-primary").checked;
 
         eventsData.push(createTimelineEvent({ date, time, title, description, isPrimary }));

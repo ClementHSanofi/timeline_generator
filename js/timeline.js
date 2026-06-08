@@ -1,5 +1,10 @@
 import { formatDate } from "./utils.js";
 
+/**
+ * Render the timeline with the given events. Each event is displayed with its date, title, and description.
+ * Primary events are highlighted with a different style.
+ * @param {Array} events - The list of events to render on the timeline.
+ */
 export function renderTimeline(events) {
     const timelineContainer = document.getElementById("timeline");
     timelineContainer.innerHTML = "";
@@ -16,7 +21,7 @@ export function renderTimeline(events) {
             <div class="event-title">${event.title}</div>
             ${event.description ? `<div class="event-description">${event.description}</div>` : ""}
         `;
-        
+
         timelineContainer.appendChild(eventElement);
     });
 }
