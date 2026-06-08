@@ -45,36 +45,53 @@ function createEventFormLine(id) {
     formLine.dataset.id = id;
 
     formLine.innerHTML = `
-        <label for="event-date-${id}">Date:</label>
-        <input type="date" class="event-date" id="event-date-${id}" required>
-        
-        <label for="event-time-${id}">Heure:</label>
-        <input type="time" class="event-time" id="event-time-${id}">
-        
-        <label for="event-title-${id}">Titre:</label>
-        <div class="title-format-pills">
-            <button type="button" class="pill-btn" data-tag="strong"><b>G</b></button>
-            <button type="button" class="pill-btn" data-tag="em"><i>I</i></button>
-            <button type="button" class="pill-btn" data-tag="u"><u>S</u></button>
+        <div class="field-group field-group--datetime">
+            <div class="field">
+                <label for="event-date-${id}">Date</label>
+                <input type="date" class="event-date" id="event-date-${id}" required>
+            </div>
+            <div class="field">
+                <label for="event-time-${id}">Heure</label>
+                <input type="time" class="event-time" id="event-time-${id}">
+            </div>
         </div>
-        <div class="event-title" id="event-title-${id}" contenteditable="true" placeholder="Titre de l'événement"></div>
-        
-        <label for="event-description-${id}">Description:</label>
-        <div class="toolbar">
-            <button type="button" class="format-btn" data-tag="strong"><b>G</b></button>
-            <button type="button" class="format-btn" data-tag="em"><i>I</i></button>
-            <button type="button" class="format-btn" data-tag="u"><u>S</u></button>
+
+        <div class="field-group field-group--titled">
+            <label for="event-title-${id}">Titre</label>
+            <div class="editable-block">
+                <div class="format-pills">
+                    <button type="button" class="pill-btn" data-tag="strong"><b>G</b></button>
+                    <button type="button" class="pill-btn" data-tag="em"><i>I</i></button>
+                    <button type="button" class="pill-btn" data-tag="u"><u>S</u></button>
+                </div>
+                <div class="event-title" id="event-title-${id}" contenteditable="true" placeholder="Titre de l'événement"></div>
+            </div>
         </div>
-        <div class="event-description" id="event-description-${id}" contenteditable="true" placeholder="Description de l'événement"></div>
-        
-        <label>
-            <input type="checkbox" id="event-primary-${id}" class="event-primary" name="isPrimary">
-            Événement principal
-        </label>
+
+        <div class="field-group field-group--description">
+            <label for="event-description-${id}">Description</label>
+            <div class="editable-block">
+                <div class="format-pills">
+                    <button type="button" class="pill-btn" data-tag="strong"><b>G</b></button>
+                    <button type="button" class="pill-btn" data-tag="em"><i>I</i></button>
+                    <button type="button" class="pill-btn" data-tag="u"><u>S</u></button>
+                </div>
+                <div class="event-description" id="event-description-${id}" contenteditable="true" placeholder="Description de l'événement"></div>
+            </div>
+        </div>
+
+        <div class="field-group field-group--options">
+            <label class="checkbox-label">
+                <input type="checkbox" id="event-primary-${id}" class="event-primary" name="isPrimary">
+                Événement principal
+            </label>
+        </div>
     `;
+
 
     setupDescriptionFormatting(formLine, id);
     setupTitleFormatting(formLine, id);
+    
 
     // Add event listener for primary checkbox to ensure only one can be selected
     formLine.querySelector(`#event-primary-${id}`)

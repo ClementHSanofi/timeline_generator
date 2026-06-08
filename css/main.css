@@ -1,4 +1,5 @@
 @import "./sideform.css";
+@import "./form.css";
 
 :root {
     --color-bg: #ffffff;

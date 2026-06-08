@@ -1,0 +1,93 @@
+.form-line {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+}
+
+/* Date + Heure sur la même ligne */
+.field-group--datetime {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.field-group--datetime .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1;
+}
+
+/* Bloc titre / description : label au dessus, pills + zone éditable collés */
+.editable-block {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 0.3rem;
+}
+
+.format-pills {
+    display: flex;
+    gap: 0.2rem;
+    padding: 0.3rem 0.4rem;
+    background: var(--color-pills-bg);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.pill-btn {
+    padding: 0.1rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-bg);
+    cursor: pointer;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.pill-btn:hover {
+    background: var(--color-hover);
+}
+
+/* Zones contenteditable */
+.event-title,
+.event-description {
+    padding: 0.4rem 0.6rem;
+    min-height: 2rem;
+    background: var(--color-bg);
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.event-description {
+    min-height: 4rem;
+}
+
+.event-title:empty::before,
+.event-description:empty::before {
+    content: attr(placeholder);
+    color: var(--color-placeholder);
+    pointer-events: none;
+}
+
+/* Checkbox à droite */
+.field-group--options {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
