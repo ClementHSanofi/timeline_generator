@@ -2,16 +2,10 @@ import { createTimelineEvent } from "./models/event.model.js";
 import { renderTimeline } from "./timeline.js";
 import { eventValidator, sortEventsByDate } from "./utils.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-    initiateForm();
-    handleFormSubmit();
-});
-
-
 /**
  * Initialize the event form with one line and set up the event listener for adding new lines.
  */
-function initiateForm() {
+export function initiateForm() {
     const form = document.getElementById("event-form");
     const addEventBtn = document.getElementById("add-event-btn");
     const clearEventsBtn = document.getElementById("clear-events-btn");
@@ -84,7 +78,7 @@ function collectFormData() {
 /**
  * Handle form submission by collecting data, validating it, and then processing it
  */
-function handleFormSubmit() {
+export function handleFormSubmit() {
     const form = document.getElementById("event-form");
     form.addEventListener("submit", (e) => {
         e.preventDefault();
