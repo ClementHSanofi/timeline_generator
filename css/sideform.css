@@ -1,0 +1,31 @@
+#sidebar-wrapper {
+    display: flex;
+    align-items: flex-start;
+}
+
+#sideform {
+    width: 380px;
+    height: 100vh;
+    background: var(--color-sidebar);
+    border-right: 1px solid var(--color-border);
+    transition: width var(--transition-speed) ease;
+    overflow: hidden;
+}
+
+#sideform.collapsed {
+    width: 0;
+}
+
+.toggle {
+    margin-top: 1rem;
+    margin-left: -1.2rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+    transition: margin-left var(--transition-speed) ease;
+}
+
+#sideform.collapsed + .toggle {
+    margin-left: 1.2rem; 
+}

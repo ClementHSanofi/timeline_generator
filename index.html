@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timeline Generator</title>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <section id="timeline-container">
-        <div id="timeline"></div>
-    </section>
-    <section id="event-form-container">
-        <form id="event-form"></form>
-        <button id="add-event-btn" type="button">Ajouter un événement</button>
-        <button type="submit" form="event-form">Générer la timeline</button>
-        <button id="clear-events-btn" type="button">Rénitialiser</button>
-    </section>
+    <div id="sidebar-wrapper">
+        <div id="sideform">
+            <div id="event-form-container">
+                <form id="event-form"></form>
+                <button id="add-event-btn" type="button">Ajouter un événement</button>
+                <button type="submit" form="event-form">Générer la timeline</button>
+                <button id="clear-events-btn" type="button">Rénitialiser</button>
+            </div>
+        </div>
+        <button class="toggle" id="sideform-toggle">MonIcon</button>
+    </div>
+    <main>
+        <div id="timeline-container">
+            <div id="timeline"></div>
+        </div>
+    </main>
+
     <script type="module" src="js/app.js"></script>
 </body>
 </html>
