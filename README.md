@@ -54,17 +54,17 @@ timeline-generator/
 ## Fonctionnalités
 
 ### Saisie des données
-- [ ] Formulaire de saisie d'événements (titre, date, description)
-- [ ] Ajout dynamique d'autant d'événements que nécessaire
-- [ ] Suppression d'un événement individuel
-- [ ] Marquage d'un événement comme **élément principal** (mis en valeur visuellement)
+- [x] Formulaire de saisie d'événements (titre, date, heure, description)
+- [x] Ajout dynamique d'autant d'événements que nécessaire
+- [x] Suppression d'un événement individuel
+- [x] Marquage d'un événement comme **élément principal** (mis en valeur visuellement)
 
 ### Mise en forme du texte
-- [ ] Formatage **gras**, *italique*, <u>souligné</u> sur le titre et la description
-- [ ] Barre d'outils de formatage intégrée au formulaire
+- [x] Formatage **gras**, *italique*, <u>souligné</u> sur le titre et la description
+- [x] Barre d'outils de formatage intégrée au formulaire
 
 ### Rendu de la timeline
-- [ ] Tri automatique des événements du plus ancien au plus récent
+- [x] Tri automatique des événements du plus ancien au plus récent
 - [ ] Séparation visuelle claire entre chaque événement
 - [ ] Mise en valeur de l'élément principal (accentuation en rouge)
 - [ ] Aperçu en temps réel dans le navigateur
