@@ -68,7 +68,7 @@ timeline-generator/
 - [x] Tri automatique des événements du plus ancien au plus récent
 - [x] Séparation visuelle claire entre chaque événement
 - [x] Mise en valeur de l'élément principal (accentuation en rouge)
-- [ ] Aperçu en temps réel dans le navigateur
+- [ ] Aperçu en temps réel dans le navigateur *(prévu - v2)*
 
 ### Export
 - [ ] Export en **PDF** fidèle au rendu visuel
