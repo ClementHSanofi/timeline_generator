@@ -20,6 +20,10 @@ export function renderTimeline(events) {
         const eventDate = formatDate(event.date, event.time);
 
         eventElement.innerHTML = `
+            <div class="event-dot"></div>
+            <div class="event-connector"></div>
+        `;
+        eventElement.innerHTML += `
             <div class="event-card">
                 <div class="event-date">${eventDate}</div>
                 <div class="event-title">${event.title}</div>
@@ -27,10 +31,6 @@ export function renderTimeline(events) {
             </div>
         `;
 
-        eventElement.innerHTML += `
-            <div class="event-connector"></div>
-            <div class="event-dot"></div>
-        `;
 
         rowElement.appendChild(eventElement);
     });

@@ -1,14 +1,17 @@
 #timeline-container {
     width: 100%;
+    max-width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
     padding: 1rem 0;
 }
 
 #timeline {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
+    align-items: flex-start;
+    width: max-content;
+    min-width: 100%;
 }
 
 
@@ -16,10 +19,10 @@
     display: flex;
     align-items: center;
     position: relative;
-    min-height:290px;
-    width: fit-content;    
+    min-height: 290px;
+    width: max-content;
     padding-right: 40px;
-    padding-left: 20px; 
+    padding-left: 20px;
 
     &::before {
         content: "";
@@ -50,26 +53,48 @@
 .timeline-event {
     position: relative;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 1fr 30px 12px 30px 1fr;
+    justify-items: center;
     align-items: center;
     min-width: 140px;
-    max-width: 220px;
+    width: 220px;
+    flex: 0 0 auto;
+    min-height: 290px;
     padding: 0 1rem;
+}
 
-    &:nth-child(odd) {
-        flex-direction: column-reverse;
-        margin-top: -60px;
-    }
+.timeline-event:nth-child(odd) .event-card {
+    grid-row: 1;
+    align-self: end;
+}
 
-    &:nth-child(even) {
-        margin-bottom: -80px;
-    }
+.timeline-event:nth-child(odd) .event-connector {
+    grid-row: 2;
+    align-self: stretch;
+}
+
+.timeline-event:nth-child(odd) .event-dot {
+    grid-row: 3;
+}
+
+.timeline-event:nth-child(even) .event-dot {
+    grid-row: 3;
+}
+
+.timeline-event:nth-child(even) .event-connector {
+    grid-row: 4;
+    align-self: stretch;
+}
+
+.timeline-event:nth-child(even) .event-card {
+    grid-row: 5;
+    align-self: start;
 }
 
 .event-connector {
     width: 2px;
-    height: 30px;
+    height: 100%;
     background: var(--color-border);
 }
 
@@ -89,8 +114,7 @@
     border-radius: 6px;
     padding: 0.6rem 0.8rem;
     text-align: center;
-    min-width: 120px;
-    max-width: 200px;
+    width: 100%;
     min-height: 110px;
     overflow-wrap: break-word;
     word-break: break-word;
