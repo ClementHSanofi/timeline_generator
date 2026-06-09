@@ -42,13 +42,15 @@ timeline-generator/
 │   ├── pdf.js                  # Export PDF via jsPDF (chargé en CDN)
 │   └── utils.js                # Fonctions utilitaires partagées (formatage dates, tri, etc.)
 │
+├── libs/                       # Libs pour fonctionnalités avancée (ex. export pdf)
+|
 ├── assets/
 │   └── icons/                  # Icônes SVG utilisées dans l'interface
 │
 └── README.md
 ```
 
-> **Note :** Aucune dépendance installée localement. Les librairies externes (ex: jsPDF) sont chargées via CDN directement dans `index.html`.
+> **Note :** Aucune dépendance installée localement. Les librairies externes (ex: jsPDF) sont directement dans `libs`.
 
 ---
 
