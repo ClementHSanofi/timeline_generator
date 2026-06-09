@@ -171,8 +171,10 @@ function primaryCheckboxHandler(event) {
  */
 function setupDescriptionFormatting(formLine, id) {
     const field = formLine.querySelector(`#event-description-${id}`);
+    const editableBlock = field.closest(".editable-block");
+    const pills = editableBlock.querySelectorAll(".pill-btn");
 
-    formLine.querySelectorAll(".format-btn").forEach(btn => {
+    pills.forEach(btn => {
         let savedRange = null;
 
         btn.addEventListener("mousedown", (e) => {
@@ -202,8 +204,10 @@ function setupDescriptionFormatting(formLine, id) {
  */
 function setupTitleFormatting(formLine, id) {
     const field = formLine.querySelector(`#event-title-${id}`);
+    const editableBlock = field.closest(".editable-block");
+    const pills = editableBlock.querySelectorAll(".pill-btn");
 
-    formLine.querySelectorAll(".pill-btn").forEach(btn => {
+    pills.forEach(btn => {
         btn.addEventListener("mousedown", (e) => {
             e.preventDefault();
             toggleWholeFieldFormat(field, btn.dataset.tag);
