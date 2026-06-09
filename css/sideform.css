@@ -1,6 +1,7 @@
 #sidebar-wrapper {
     display: flex;
     align-items: flex-start;
+    margin-right: 1rem;
 }
 
 #sideform {

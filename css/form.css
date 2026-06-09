@@ -59,6 +59,8 @@ input[type="time"]:focus {
     overflow: hidden;
     margin-top: 0.3rem;
     transition: border-color 0.2s ease;
+    min-width: 0;
+    width: 100%;
 }
 
 .editable-block:focus-within {
@@ -109,8 +111,10 @@ input[type="time"]:focus {
 }
 
 .event-description {
-    min-height: 4rem;
-    resize: vertical;
+    min-height: 2rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    overflow: hidden;
 }
 
 .event-title:empty::before,
