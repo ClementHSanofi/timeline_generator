@@ -6,6 +6,10 @@
     --color-sidebar: #f5f5f5;
     --color-border: #dddddd;
     --color-primary: #7A00E6;
+    --color-primary-hover: #52019e;
+    --color-secondary: #8f98a0;
+    --color-valid: #2a9d8f;
+    --color-danger: #e63946;
     --color-text: #333333;
     --transition-speed: 0.8s;
 }
