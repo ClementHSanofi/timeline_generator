@@ -82,7 +82,10 @@ function createEventFormLine(id) {
 
         <div class="field-group field-group--options">
             <label class="checkbox-label">
-                <input type="checkbox" id="event-primary-${id}" class="event-primary" name="isPrimary">
+                <span class="checkbox-wrapper">
+                    <input type="checkbox" id="event-primary-${id}" class="event-primary" name="isPrimary">
+                    <span class="custom-checkbox"></span>
+                </span>
                 Événement principal
             </label>
         </div>

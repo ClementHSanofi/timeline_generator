@@ -4,7 +4,7 @@
 }
 
 #sideform {
-    width: 420px;
+    width: 480px;
     height: 100vh;
     background: var(--color-sidebar);
     border-right: 1px solid var(--color-border);
@@ -20,7 +20,7 @@
 
 #sideform-header,
 #event-form-container {
-    min-width: 420px;
+    min-width: 480px;
 }
 
 #sideform-header {
@@ -31,6 +31,7 @@
 
 #sideform-header h1 {
     margin: 0;
+    font-size: 1.75rem;
 }
 
 #event-form-container {
@@ -51,14 +52,23 @@
 
 .toggle {
     margin-top: 1rem;
-    margin-left: -1.2rem;
+    margin-left: -3rem;
     cursor: pointer;
     flex-shrink: 0;
     position: relative;
     z-index: 10;
     transition: margin-left var(--transition-speed) ease;
+    border: none;
+    background-color: transparent;
 }
 
 #sideform.collapsed + .toggle {
     margin-left: 1.2rem;
 }
+
+.sidebar-icon {
+    width: 30px;
+    height: 30px;
+    fill: var(--color-text);
+}
+
