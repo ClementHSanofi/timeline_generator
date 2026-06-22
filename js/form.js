@@ -155,6 +155,7 @@ export function handleFormSubmit() {
     });
 }
 
+
 /**
  * Create a remove button for a form line.
  * @param {number} id - The unique identifier for the form line.
