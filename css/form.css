@@ -255,3 +255,27 @@ input[type="time"]:focus {
 .buttons-form .add-event-button:hover {
     background: var(--color-primary);
 }
+
+/* ── Data utility buttons (import / export) ──────────────── */
+.buttons-data {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.buttons-data button {
+    flex: 1;
+    padding: 0.4rem 0.6rem;
+    border: 1.5px solid var(--color-primary);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--color-primary);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.buttons-data button:hover {
+    background: var(--color-primary);
+    color: #fff;
+}
