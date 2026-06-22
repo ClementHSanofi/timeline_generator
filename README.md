@@ -76,7 +76,7 @@ timeline-generator/
 ### Export
 - [x] Export en **PDF** fidèle au rendu visuel
 - [ ] Export en image PNG *(prévu — v2)*
-- [ ] Sauvegarde / chargement d'un projet en JSON *(prévu — v2)*
+- [x] Sauvegarde / chargement d'un projet en JSON *(prévu — v2)*
 
 ### Sécuritées
 - [x] Outils 100% offline - aucune connexion internet requise

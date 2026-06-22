@@ -26,6 +26,24 @@ function setupFormButtons() {
 }
 
 /**
+ * Populate the form with an array of event data (used by import).
+ * @param {Partial<import('./models/event.model.js').TimelineEvent>[]} events
+ */
+export function loadFormData(events) {
+    const form = document.getElementById("event-form");
+    form.innerHTML = "";
+    events.forEach((event, index) => {
+        const line = createEventFormLine(index);
+        form.appendChild(line);
+        line.querySelector(".event-date").value = event.date ?? "";
+        line.querySelector(".event-time").value = event.time ?? "";
+        line.querySelector(".event-title").innerHTML = event.title ?? "";
+        line.querySelector(".event-description").innerHTML = event.description ?? "";
+        line.querySelector(".event-primary").checked = event.isPrimary ?? false;
+    });
+}
+
+/**
  * Reset the form by clearing all form lines and reinitializing the form.
  */
 function resetForm() {
