@@ -70,13 +70,13 @@ timeline-generator/
 - [x] Tri automatique des événements du plus ancien au plus récent
 - [x] Séparation visuelle claire entre chaque événement
 - [x] Mise en valeur de l'élément principal (accentuation en rouge)
-- [ ] Aperçu en temps réel dans le navigateur *(prévu - v2)*
-- [ ] Réduction de l'écart entre les élément de la timeline en fonction de l'espacement de chaque dates
+- [x] Réduction de l'écart entre les élément de la timeline en fonction de l'espacement de chaque dates
+- [ ] Aperçu en temps réel dans le navigateur *(A voir - v2)*
 
 ### Export
 - [x] Export en **PDF** fidèle au rendu visuel
-- [ ] Export en image PNG *(prévu — v2)*
 - [x] Sauvegarde / chargement d'un projet en JSON *(prévu — v2)*
+- [ ] Export en image PNG *(prévu — v2)*
 
 ### Sécuritées
 - [x] Outils 100% offline - aucune connexion internet requise
