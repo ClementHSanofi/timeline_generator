@@ -71,7 +71,7 @@ timeline-generator/
 - [x] Séparation visuelle claire entre chaque événement
 - [x] Mise en valeur de l'élément principal (accentuation en rouge)
 - [x] Réduction de l'écart entre les élément de la timeline en fonction de l'espacement de chaque dates
-- [ ] Aperçu en temps réel dans le navigateur *(A voir - v2)*
+- [x] Aperçu en temps réel dans le navigateur *(A voir - v2)*
 
 ### Export
 - [x] Export en **PDF** fidèle au rendu visuel
