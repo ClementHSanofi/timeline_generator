@@ -1,5 +1,4 @@
-import { formatDate } from "./utils.js";
-
+import { formatDate, calculateEventSpacing } from "./utils.js";
 
 /**
  * Render the timeline with the given events. Each event is displayed with its date, title, and description.
@@ -11,11 +10,17 @@ export function renderTimeline(events) {
     timelineContainer.innerHTML = "";
     const rowElement = document.createElement("div");
     rowElement.classList.add("timeline-row");
+    const spacings = calculateEventSpacing(events, { minSpacing: 1, maxSpacing: 8 });
 
-    events.forEach((event) => {
+    events.forEach((event, index) => {
         const eventElement = document.createElement("div");
         eventElement.classList.add("timeline-event");
         if (event.isPrimary) eventElement.classList.add("timeline-event--primary");
+
+        // Apply spacing horizontally if not the first event
+        if (index > 0 && spacings[index - 1]) {
+            eventElement.style.marginLeft = `${spacings[index - 1]}rem`;
+        }
 
         const eventDate = formatDate(event.date, event.time);
 
@@ -30,7 +35,6 @@ export function renderTimeline(events) {
                 ${event.description ? `<div class="event-description">${event.description}</div>` : ""}
             </div>
         `;
-
 
         rowElement.appendChild(eventElement);
     });

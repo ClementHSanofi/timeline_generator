@@ -218,19 +218,22 @@ input[type="time"]:focus {
 
 
 .buttons-form {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--color-border);
 }
 
 .buttons-form button {
-    flex: 1;
-    padding: 0.2rem 0.6rem;
+    padding: 0.4rem 0.6rem;
     border: none;
     border-radius: 6px;
     color: #fff;
     cursor: pointer;
-    transition: background 0.6s ease;
+    font-weight: 600;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
 .buttons-form .generate-button{
@@ -246,12 +249,39 @@ input[type="time"]:focus {
 }
 .buttons-form .clear-button:hover {
     background: var(--color-danger);
+    border-color: var(--color-danger);
+    color: #fff;
 }
 
 .buttons-form .add-event-button {
-    background: var(--color-secondary);
+    background: var(--color-primary);
 }
 
 .buttons-form .add-event-button:hover {
+    background: var(--color-primary-hover);
+}
+
+/* ── Data utility buttons (import / export) ──────────────── */
+.buttons-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+}
+
+.buttons-data button {
+    padding: 0.35rem 0.6rem;
+    border: 1px solid var(--color-primary);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--color-primary);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.buttons-data button:hover {
     background: var(--color-primary);
+    color: #fff;
 }

@@ -16,8 +16,11 @@
                 <form id="event-form"></form>
                 <div class="buttons-form">
                     <button id="add-event-btn" class="add-event-button" type="button">Ajouter un événement</button>
-                    <button type="submit" form="event-form" class="generate-button">Générer la timeline</button>
                     <button id="clear-events-btn" class="clear-button" type="button">Réinitialiser</button>
+                </div>
+                <div class="buttons-data">
+                    <button id="export-json-btn" class="export-json-button" type="button">Exporter</button>
+                    <button id="import-json-btn" class="import-json-button" type="button">Importer</button>
                 </div>
             </div>
         </div>
@@ -28,7 +31,14 @@
         <div id="timeline-container">
             <div id="timeline"></div>
         </div>
-        <button id="export-pdf-btn" class="export-button">Exporter en PDF</button>
+        <div class="export-actions">
+            <label for="export-format" class="export-format-label">Format</label>
+            <select id="export-format" class="export-format">
+                <option value="pdf">PDF</option>
+                <option value="png">PNG</option>
+            </select>
+            <button id="export-btn" class="export-button">Exporter</button>
+        </div>
     </main>
 
     <script type="module" src="js/app.js"></script>

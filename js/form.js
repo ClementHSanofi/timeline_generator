@@ -26,6 +26,24 @@ function setupFormButtons() {
 }
 
 /**
+ * Populate the form with an array of event data (used by import).
+ * @param {Partial<import('./models/event.model.js').TimelineEvent>[]} events
+ */
+export function loadFormData(events) {
+    const form = document.getElementById("event-form");
+    form.innerHTML = "";
+    events.forEach((event, index) => {
+        const line = createEventFormLine(index);
+        form.appendChild(line);
+        line.querySelector(".event-date").value = event.date ?? "";
+        line.querySelector(".event-time").value = event.time ?? "";
+        line.querySelector(".event-title").innerHTML = event.title ?? "";
+        line.querySelector(".event-description").innerHTML = event.description ?? "";
+        line.querySelector(".event-primary").checked = event.isPrimary ?? false;
+    });
+}
+
+/**
  * Reset the form by clearing all form lines and reinitializing the form.
  */
 function resetForm() {
@@ -120,20 +138,25 @@ function collectFormData() {
     }));
 }
 
+
 /**
- * Handle form submission by collecting data, validating it, and then processing it
+ * Automatically re-render the timeline whenever any input in the form changes, without needing to submit the form.
+ * Listens to input, change, and click events on the form to trigger re-rendering.
  */
-export function handleFormSubmit() {
-    document.getElementById("event-form").addEventListener("submit", (e) => {
-        e.preventDefault();
+export function autoRenderTimeline() {
+    const rerender = () => {
         const validEvents = collectFormData().filter(eventValidator);
-
-        if (validEvents.length === 0) {
-            alert("Veuillez remplir au moins un événement avec une date et un titre valides.");
-            return;
-        }
-
         renderTimeline(sortEventsByDate(validEvents));
+    };
+
+    document.getElementById("event-form").addEventListener("input", rerender);
+    document.getElementById("event-form").addEventListener("change", rerender);
+    // Also listen to formatting button clicks
+    document.getElementById("event-form").addEventListener("click", (e) => {
+        if (e.target.closest(".pill-btn")) {
+            // Delay slightly to ensure formatting is applied before render
+            setTimeout(rerender, 0);
+        }
     });
 }
 
