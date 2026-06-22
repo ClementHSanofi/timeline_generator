@@ -103,8 +103,8 @@ timeline-generator/
 ### v2 — Améliorations
 - Sauvegarde / rechargement d'un projet (format JSON)
 - Export image PNG
-- Thèmes visuels (clair / sombre)
-- Drag & drop pour réordonner les événements
+- Espacement des évenements en fonction de leurs espacements
+- Aperçu en temps réel de la timeline
 
 ---
 
