@@ -10,7 +10,7 @@ export function renderTimeline(events) {
     timelineContainer.innerHTML = "";
     const rowElement = document.createElement("div");
     rowElement.classList.add("timeline-row");
-    const spacings = calculateEventSpacing(events, { minSpacing: 1, maxSpacing: 16 });
+    const spacings = calculateEventSpacing(events, { minSpacing: 1, maxSpacing: 8 });
 
     events.forEach((event, index) => {
         const eventElement = document.createElement("div");
