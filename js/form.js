@@ -138,23 +138,27 @@ function collectFormData() {
     }));
 }
 
+
 /**
- * Handle form submission by collecting data, validating it, and then processing it
+ * Automatically re-render the timeline whenever any input in the form changes, without needing to submit the form.
+ * Listens to input, change, and click events on the form to trigger re-rendering.
  */
-export function handleFormSubmit() {
-    document.getElementById("event-form").addEventListener("submit", (e) => {
-        e.preventDefault();
+export function autoRenderTimeline() {
+    const rerender = () => {
         const validEvents = collectFormData().filter(eventValidator);
-
-        if (validEvents.length === 0) {
-            alert("Veuillez remplir au moins un événement avec une date et un titre valides.");
-            return;
-        }
-
         renderTimeline(sortEventsByDate(validEvents));
+    };
+
+    document.getElementById("event-form").addEventListener("input", rerender);
+    document.getElementById("event-form").addEventListener("change", rerender);
+    // Also listen to formatting button clicks
+    document.getElementById("event-form").addEventListener("click", (e) => {
+        if (e.target.closest(".pill-btn")) {
+            // Delay slightly to ensure formatting is applied before render
+            setTimeout(rerender, 0);
+        }
     });
 }
-
 
 /**
  * Create a remove button for a form line.

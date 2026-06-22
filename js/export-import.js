@@ -1,5 +1,18 @@
 import { loadFormData } from "./form.js";
+import { renderTimeline } from "./timeline.js";
+import { eventValidator, sortEventsByDate } from "./utils.js";
 
+function collectRenderableEvents() {
+    return [...document.querySelectorAll(".form-line")]
+        .map(line => ({
+            date: line.querySelector(".event-date").value,
+            time: line.querySelector(".event-time").value,
+            title: line.querySelector(".event-title").innerHTML,
+            description: line.querySelector(".event-description").innerHTML,
+            isPrimary: line.querySelector(".event-primary").checked,
+        }))
+        .filter(eventValidator);
+}
 /**
  * Export the current form data as a JSON file.
  */
@@ -39,6 +52,8 @@ export function importFormData() {
                 const events = JSON.parse(reader.result);
                 if (!Array.isArray(events)) throw new Error("Format invalide");
                 loadFormData(events);
+                const validEvents = collectRenderableEvents();
+                renderTimeline(sortEventsByDate(validEvents));
             } catch {
                 alert("Fichier JSON invalide ou mal formaté.");
             }
