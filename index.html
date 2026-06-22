@@ -31,7 +31,14 @@
         <div id="timeline-container">
             <div id="timeline"></div>
         </div>
-        <button id="export-pdf-btn" class="export-button">Exporter en PDF</button>
+        <div class="export-actions">
+            <label for="export-format" class="export-format-label">Format</label>
+            <select id="export-format" class="export-format">
+                <option value="pdf">PDF</option>
+                <option value="png">PNG</option>
+            </select>
+            <button id="export-btn" class="export-button">Exporter</button>
+        </div>
     </main>
 
     <script type="module" src="js/app.js"></script>
