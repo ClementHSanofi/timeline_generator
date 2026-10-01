@@ -171,6 +171,7 @@ function createRemoveButton(id) {
     removeBtn.textContent = "Supprimer";
     removeBtn.addEventListener("click", () => {
         document.querySelector(`.form-line[data-id="${id}"]`).remove();
+        document.getElementById("event-form").dispatchEvent(new Event("input", { bubbles: true }));
     });
     return removeBtn;
 }
